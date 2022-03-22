@@ -1,0 +1,10 @@
+"use strict";/* Elements */function _typeof(a){"@babel/helpers - typeof";return _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(a){return typeof a}:function(a){return a&&"function"==typeof Symbol&&a.constructor===Symbol&&a!==Symbol.prototype?"symbol":typeof a},_typeof(a)}var list=document.getElementById("list"),input=document.getElementById("input"),add=document.getElementById("add"),clear=document.getElementById("clear"),url=document.getElementById("url"),load=document.getElementById("load"),storage=new arrayStorage("tasks"),tasks=storage.list;//function to display the tasks list
+function taskToDOM(a){// verify if the string is not empty
+if("string"==typeof a&&a){var b=document.createElement("li"),c=document.createElement("button");return b.textContent=a,c.textContent="REMOVE",c.addEventListener("click",function(){var a=c.parentNode.firstChild.textContent;storage.remove(a),list.removeChild(c.parentNode)}),b.appendChild(c),list.insertBefore(b,list.firstChild),!0}return!1}// Add each task to the ul
+// for (i = 0; i < tasks.length; i++) {
+//   taskToDOM(tasks[i]);
+// }
+tasks.forEach(function(a){taskToDOM(a)});//Function to add tasks with the button add and key Enter
+function newTask(){-1===storage.list.indexOf(input.value)&&taskToDOM(input.value)&&(storage.set(input.value),input.value=""),input.focus()}//Delete the list from the DOM with clear
+//Handle tasks import
+add.addEventListener("click",newTask),input.addEventListener("keydown",function(a){"Enter"===a.key&&newTask()}),clear.addEventListener("click",function(){storage.clear(),list.innerHTML=""}),load.addEventListener("click",function(){fetch(url.value).then(function(a){if(a.ok)return a.json();throw new Error("".concat(a.statusText," (").concat(a.status,")"))}).then(function(a){if(Array.isArray(a))return void a.forEach(function(a){-1===storage.list.indexOf(a)&&taskToDOM(a)&&storage.set(a)});throw new TypeError("The response is not a JSON array (Type: ".concat(_typeof(a),")"))})});

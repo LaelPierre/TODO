@@ -1,0 +1,6 @@
+"use strict";/* Local storage for tasks */function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError("Cannot call a class as a function")}function _defineProperties(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,"value"in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}function _createClass(a,b,c){return b&&_defineProperties(a.prototype,b),c&&_defineProperties(a,c),Object.defineProperty(a,"prototype",{writable:!1}),a}var arrayStorage=/*#__PURE__*/function(){//Constructor to initialise object with the key name and his value
+function a(b){_classCallCheck(this,a),this.name=b,this.list=this.get()}//Method to get the value from the array or to create the array by default if empty
+return _createClass(a,[{key:"get",value:function get(){return localStorage.getItem(this.name)||localStorage.setItem(this.name,"[]"),JSON.parse(localStorage.getItem(this.name))}//Method to add value to the array when click add
+},{key:"set",value:function set(a){this.list.push(a),localStorage.setItem(this.name,JSON.stringify(this.list))}//Method to remove a task
+},{key:"remove",value:function remove(a){var b=this.list.indexOf(a);this.list.splice(b,1),localStorage.setItem(this.name,JSON.stringify(this.list))}//Method to clear all tasks
+},{key:"clear",value:function clear(){localStorage.removeItem(this.name)}}]),a}();
